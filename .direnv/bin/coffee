@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+_DIR=$(dirname $(realpath "$0"))
+
+exec node --enable-source-maps --trace-warnings --es-module-specifier-resolution=node --trace-uncaught --expose-gc --experimental-loader "$_DIR/coffee-loader.mjs" --unhandled-rejections=strict $@
+
