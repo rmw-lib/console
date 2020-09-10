@@ -16,14 +16,12 @@ fs_stream = (path)=>
     STREAM[path] = log = createWriteStream path, flags:"a"
   log
 
-CONFIG.set(a:1)
 
-export default Log = =>
+export default =>
   config = CONFIG.get() or {}
   {name} = package_json(1)
 
   [project, name] = project_name name.toUpperCase()
-  {env} = process
 
   stream = []
   error_stream = []
@@ -32,13 +30,12 @@ export default Log = =>
     li = (
       prefix+"_"+suffix for prefix in [project+"_"+name, project]
     )
-    for vars in [env, config]
+    for vars in [process.env, config]
       for varname in li
         if varname of vars
-          return env[varname].toLowerCase()
+          return vars[varname].toString().toLowerCase()
     return
-
-  console.log "DEBUG", DEBUG, config
+  console.log config
 
   DEBUG = get 'DEBUG'
   if DEBUG
@@ -63,9 +60,6 @@ export default Log = =>
   if ERR
     error_stream.push(fs_stream ERR)
 
-  console.log stream.length
-  console.log error_stream.length
-
   new Signale {
     stream
     types: {
@@ -75,6 +69,6 @@ export default Log = =>
     }
   }
 
-con = Log `import.meta`
-con.log 'yes',new Date()
-con.error 'no',new Date()
+process.on 'exit', =>
+  for s from Object.values STREAM
+    s.close()

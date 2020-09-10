@@ -12,6 +12,18 @@ yarn add @rmw/console
 npm install @rmw/console
 ```
 
+## 配置
+
+比如你的`package.json`中的`name`是 `@rmw/xxx`
+
+可以通过环境变量
+
+`RMW_XXX_DEBUG` 来配置是否在屏幕上打印日志
+
+可以配置 `RMW_XXX_LOG`，`RMW_XXX_ERR` 来控制输出日志的文件
+
+也可以配置 `~/.config/rmw/console.yml` 来设置以上变量
+
 ## 使用
 
 ```
