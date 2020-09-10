@@ -16,6 +16,10 @@ fs_stream = (path)=>
     STREAM[path] = log = createWriteStream path, flags:"a"
   log
 
+export class Console extends Signale
+  trace:(...args)->
+    args.push "\n"+(new Error()).stack
+    @error.apply @, args
 
 export default =>
   config = CONFIG.get() or {}
@@ -35,7 +39,6 @@ export default =>
         if varname of vars
           return vars[varname].toString().toLowerCase()
     return
-  console.log config
 
   DEBUG = get 'DEBUG'
   if DEBUG
@@ -60,7 +63,7 @@ export default =>
   if ERR
     error_stream.push(fs_stream ERR)
 
-  new Signale {
+  new Console {
     stream
     types: {
       error: {

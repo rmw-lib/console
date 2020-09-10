@@ -7,5 +7,6 @@ import test from 'tape-catch'
 test 'console', (t)=>
   console = Console()
   console.log "您好"
+  console.trace()
   console.error "test"
   t.end()
