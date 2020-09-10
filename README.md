@@ -24,6 +24,8 @@ npm install @rmw/console
 
 可以配置 `RMW_XXX_LOG`，`RMW_XXX_ERR` 来控制输出日志的文件
 
+`RMW_LOG`、`RMW_ERR`、`RMW_DEBUG`，则为项目的全局配置
+
 也可以配置 `~/.config/rmw/console.yml` 来设置以上变量
 
 ## 使用
