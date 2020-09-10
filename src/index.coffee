@@ -1,8 +1,7 @@
 #!/usr/bin/env coffee
 
-import signale from 'signale'
+import signale from '@rmw/signale'
 {Signale} = signale
-import {thisdir} from '@rmw/thisfile'
 import {createWriteStream,readFileSync} from 'fs'
 import {dirname,join} from 'path'
 import * as CONFIG from '@rmw/config'
@@ -63,7 +62,7 @@ export default =>
   if ERR
     error_stream.push(fs_stream ERR)
 
-  new Console {
+  c = new Console {
     stream
     types: {
       error: {
@@ -71,6 +70,12 @@ export default =>
       }
     }
   }
+  c.config {
+    displayDate:true
+    formatDate:"YYYY-MM-DD HH:mm:ss"
+    displayFilename: true
+  }
+  c
 
 process.on 'exit', =>
   for s from Object.values STREAM

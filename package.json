@@ -14,8 +14,7 @@
   "dependencies": {
     "@rmw/config": "^0.0.10",
     "@rmw/env": "^0.0.10",
-    "@rmw/thisfile": "^0.0.2",
-    "signale": "^1.4.0"
+    "@rmw/signale": "^1.4.3"
   },
   "devDependencies": {
     "@rmw/md-include": "^0.4.5",
