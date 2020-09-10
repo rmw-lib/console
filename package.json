@@ -12,7 +12,10 @@
     "/lib"
   ],
   "dependencies": {
-    "@rmw/config": "^0.0.5"
+    "@rmw/config": "^0.0.9",
+    "@rmw/env": "^0.0.10",
+    "@rmw/thisfile": "^0.0.2",
+    "signale": "^1.4.0"
   },
   "devDependencies": {
     "@rmw/md-include": "^0.4.5",

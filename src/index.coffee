@@ -5,6 +5,8 @@ import signale from 'signale'
 import {thisdir} from '@rmw/thisfile'
 import {createWriteStream,readFileSync} from 'fs'
 import {dirname,join} from 'path'
+import * as CONFIG from '@rmw/config'
+import {package_json, project_name} from "@rmw/env"
 
 STREAM = {}
 
@@ -14,25 +16,29 @@ fs_stream = (path)=>
     STREAM[path] = log = createWriteStream path, flags:"a"
   log
 
-export default Log = (meta)=>
-  {name} = JSON.parse(readFileSync(join(dirname(thisdir(meta)),'package.json'), 'utf8'))
+CONFIG.set(a:1)
 
-  name = name.toUpperCase()
+export default Log = =>
+  config = CONFIG.get() or {}
+  {name} = package_json(1)
 
-  pos = name.indexOf("/")
-  project = name[...pos].replace("@",'')
-  name = name[pos+1..]
-
+  [project, name] = project_name name.toUpperCase()
   {env} = process
 
   stream = []
   error_stream = []
 
   get = (suffix)=>
-    for prefix in [project+"_"+name, project]
-      varname = prefix+"_"+suffix
-      if varname of env
-        return env[varname].toLowerCase()
+    li = (
+      prefix+"_"+suffix for prefix in [project+"_"+name, project]
+    )
+    for vars in [env, config]
+      for varname in li
+        if varname of vars
+          return env[varname].toLowerCase()
+    return
+
+  console.log "DEBUG", DEBUG, config
 
   DEBUG = get 'DEBUG'
   if DEBUG
