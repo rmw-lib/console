@@ -1,7 +1,7 @@
 {
-  "name": "@rmw/xxx",
+  "name": "@rmw/console",
   "version": "0.0.0",
-  "repository": "https://github.com/rmw-lib/xxx",
+  "repository": "https://github.com/rmw-lib/console",
   "author": "i@rmw.link",
   "license": "MulanPSL-2.0",
   "exports": {

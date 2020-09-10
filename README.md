@@ -1,29 +1,29 @@
 <!-- 本文件由 ./readme.make.md 自动生成，请不要直接修改此文件 -->
 
-# @rmw/xxx
+# @rmw/console
 
 ##  安装
 
 ```
-yarn add @rmw/xxx
+yarn add @rmw/console
 ```
 
 或者
 
 ```
-npm install @rmw/xxx
+npm install @rmw/console
 ```
 
 ## 使用
 
 ```
 #!/usr/bin/env coffee
-import xxx from '@rmw/xxx'
-# import {xxx as Xxx} from '@rmw/xxx'
+import console from '@rmw/console'
+# import {console as Xxx} from '@rmw/console'
 import test from 'tape-catch'
 
-test 'xxx', (t)=>
-  t.equal xxx(1,2),3
+test 'console', (t)=>
+  t.equal console(1,2),3
   # t.deepEqual Xxx([1],[2]),[3]
   t.end()
 

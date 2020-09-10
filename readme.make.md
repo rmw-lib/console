@@ -1,15 +1,15 @@
-# @rmw/xxx
+# @rmw/console
 
 ##  安装
 
 ```
-yarn add @rmw/xxx
+yarn add @rmw/console
 ```
 
 或者
 
 ```
-npm install @rmw/xxx
+npm install @rmw/console
 ```
 
 ## 使用
