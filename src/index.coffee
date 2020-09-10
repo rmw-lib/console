@@ -4,7 +4,7 @@ import signale from '@rmw/signale'
 {Signale} = signale
 import {createWriteStream,readFileSync} from 'fs'
 import {dirname,join} from 'path'
-import * as CONFIG from '@rmw/config'
+import * as CONF from '@rmw/config'
 import {package_json, project_name} from "@rmw/env"
 
 STREAM = {}
@@ -20,8 +20,15 @@ export class Console extends Signale
     args.push "\n"+(new Error()).stack
     @error.apply @, args
 
+CONFIG = CONF.get() or {}
+if Object.keys(CONFIG).length == 0
+  CONFIG = {
+    date:"YYYY-MM-DD HH:mm:ss"
+    file:true
+  }
+  CONF.set CONFIG
+
 export default =>
-  config = CONFIG.get() or {}
   {name} = package_json(1)
 
   [project, name] = project_name name.toUpperCase()
@@ -33,7 +40,7 @@ export default =>
     li = (
       prefix+"_"+suffix for prefix in [project+"_"+name, project]
     )
-    for vars in [process.env, config]
+    for vars in [process.env, CONFIG]
       for varname in li
         if varname of vars
           return vars[varname].toString().toLowerCase()
@@ -70,11 +77,14 @@ export default =>
       }
     }
   }
-  c.config {
-    displayDate:true
-    formatDate:"YYYY-MM-DD HH:mm:ss"
-    displayFilename: true
+  opt = {
   }
+  if CONFIG.file
+    opt.displayFilename = true
+  if CONFIG.date
+    opt.formatDate = CONFIG.date
+    opt.displayDate = true
+  c.config opt
   c
 
 process.on 'exit', =>

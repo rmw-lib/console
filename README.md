@@ -28,6 +28,15 @@ npm install @rmw/console
 
 也可以配置 `~/.config/rmw/console.yml` 来设置以上变量
 
+配置文件还可以设置
+
+```
+date: "YYYY-MM-DD HH:mm:ss"
+```
+
+来控制是否显示日期
+
+
 ## 使用
 
 ```
