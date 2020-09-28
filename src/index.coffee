@@ -20,13 +20,10 @@ export class Console extends Signale
     args.push "\n"+(new Error()).stack
     @error.apply @, args
 
-CONFIG = CONF.get() or {}
-if Object.keys(CONFIG).length == 0
-  CONFIG = {
-    date:"YYYY-MM-DD HH:mm:ss"
-    file:true
-  }
-  CONF.set CONFIG
+CONFIG = {
+  date:CONF.date or "YYYY-MM-DD HH:mm:ss"
+  file:CONF.file or true
+}
 
 export default =>
   {name} = package_json(1)
