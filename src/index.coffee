@@ -4,7 +4,7 @@ import signale from '@rmw/signale'
 {Signale} = signale
 import {createWriteStream,readFileSync} from 'fs'
 import {dirname,join} from 'path'
-import * as CONF from '@rmw/config'
+import CONF from '@rmw/config'
 import {package_json, project_name} from "@rmw/env"
 
 STREAM = {}
