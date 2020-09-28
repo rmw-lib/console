@@ -21,9 +21,14 @@ export class Console extends Signale
     @error.apply @, args
 
 CONFIG = {
-  date:CONF.date or "YYYY-MM-DD HH:mm:ss"
-  file:CONF.file or true
+  date:CONF.date
+  file:CONF.file
 }
+
+if CONFIG.date == undefined
+  CONFIG.date = "YYYY-MM-DD HH:mm:ss"
+if CONFIG.file == undefined
+  CONFIG.file = true
 
 export default =>
   {name} = package_json(1)
@@ -37,10 +42,11 @@ export default =>
     li = (
       prefix+"_"+suffix for prefix in [project+"_"+name, project]
     )
-    for vars in [process.env, CONFIG]
+    for vars in [process.env, CONF]
       for varname in li
-        if varname of vars
-          return vars[varname].toString().toLowerCase()
+        val = vars[varname]
+        if val != undefined
+          return val.toString().toLowerCase()
     return
 
   DEBUG = get 'DEBUG'
