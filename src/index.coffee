@@ -6,6 +6,7 @@ import {createWriteStream,readFileSync} from 'fs'
 import {dirname,join} from 'path'
 import CONF from '@rmw/config'
 import {package_json, project_name} from "@rmw/env"
+import util from 'util'
 
 STREAM = {}
 
@@ -15,7 +16,17 @@ fs_stream = (path)=>
     STREAM[path] = log = createWriteStream path, flags:"a"
   log
 
+colors = process.stdout.hasColors()
+
 export class Console extends Signale
+  dir:(obj, options={})->
+    options = {
+      colors
+      ...options
+    }
+    @log util.inspect(obj, options)
+
+
   trace:(...args)->
     args.push "\n"+(new Error()).stack
     @error.apply @, args
@@ -29,6 +40,8 @@ if CONFIG.date == undefined
   CONFIG.date = "YYYY-MM-DD HH:mm:ss"
 if CONFIG.file == undefined
   CONFIG.file = true
+
+IS_DEV = process.NODE_ENV != "production"
 
 export default =>
   {name} = package_json(1)
@@ -49,8 +62,10 @@ export default =>
           return val.toString().toLowerCase()
     return
 
-  DEBUG = get 'DEBUG'
-  if DEBUG
+  DEBUG = get('DEBUG')
+  if DEBUG == undefined
+    DEBUG = IS_DEV
+  else
     try
       DEBUG = JSON.parse(DEBUG) - 0
     catch
