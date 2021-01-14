@@ -31,15 +31,11 @@ export class Console extends Signale
     args.push "\n"+(new Error()).stack
     @error.apply @, args
 
-CONFIG = {
-  date:CONF.date
-  file:CONF.file
-}
-
-if CONFIG.date == undefined
-  CONFIG.date = "YYYY-MM-DD HH:mm:ss"
-if CONFIG.file == undefined
-  CONFIG.file = true
+CONFIG = {}
+do =>
+  # 必须要这么做才能让配置文件是 console.yml
+  CONFIG.date = CONF.date or "HH:mm:ss"
+  CONFIG.file = CONF.file or true
 
 IS_DEV = process.NODE_ENV != "production"
 
