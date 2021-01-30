@@ -11,7 +11,7 @@ import {
 
 import CoffeeScript from 'coffeescript';
 
-const IGNORE = new Set('yaml txt js mjs wasm json'.split(' '));
+const IGNORE = new Set('coffee yaml txt js mjs wasm json'.split(' '));
 const baseURL = pathToFileURL(process.cwd() + '/').href;
 
 // CoffeeScript files end in .coffee, .litcoffee or .coffee.md.
@@ -21,12 +21,11 @@ export function resolve(specifier, context, defaultResolve) {
   const {
     parentURL = baseURL
   } = context;
-
   // Node.js normally errors on unknown file extensions, so return a URL for
   // specifiers ending in the CoffeeScript file extensions.
   var ext=specifier.slice(specifier.lastIndexOf('.')+1)
   if (!IGNORE.has(ext) && specifier.startsWith(".")){
-    specifier = specifier+".coffee"
+    specifier = specifier+parentURL.slice(parentURL.lastIndexOf("."))
   }
   if (extensionsRegex.test(specifier)) {
     return {
