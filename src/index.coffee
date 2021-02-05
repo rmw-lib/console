@@ -19,17 +19,23 @@ fs_stream = (path)=>
 colors = process.stdout.hasColors()
 
 export class Console extends Signale
+  assert:(assertion, args...)->
+    if not assertion
+      @log ...args
+    return
+
   dir:(obj, options={})->
     options = {
       colors
       ...options
     }
     @log util.inspect(obj, options)
-
+    return
 
   trace:(...args)->
     args.push "\n"+(new Error()).stack
     @error.apply @, args
+    return
 
 CONFIG = {}
 do =>
