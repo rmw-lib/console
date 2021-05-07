@@ -6,13 +6,13 @@
   "license": "MulanPSL-2.0",
   "exports": {
     ".": "./lib/index.js",
-    "./": "./lib/"
+    "./*": "./lib/"
   },
   "files": [
     "/lib"
   ],
   "dependencies": {
-    "@rmw/config": "^0.0.20",
+    "@rmw/config": "^0.0.21",
     "@rmw/env": "^0.0.17",
     "@rmw/signale": "^1.4.5"
   },
@@ -22,7 +22,7 @@
     "colortape": "^0.1.2",
     "nodemon": "^2.0.7",
     "source-map-support": "^0.5.19",
-    "tape": "^5.1.1",
+    "tape": "^5.2.2",
     "tape-catch": "^1.0.6"
   },
   "scripts": {
