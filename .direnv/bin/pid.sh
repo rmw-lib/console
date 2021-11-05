@@ -9,7 +9,7 @@ mkdir -p $(dirname $lock)
 if [[ -f "$lock" ]]; then
 pid=$(cat $lock)
 echo -e "$RED$ kill -9 $pid$END"
-kill -9 $pid || true
+kill -9 $pid 2>/dev/null|| true
 while [ -e /proc/$pid ]; do
   echo "$SCRIPT_NAME: pid $pid running , trying kill it"
   kill $pid
