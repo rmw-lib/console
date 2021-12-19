@@ -16,7 +16,7 @@ fs_stream = (path)=>
     STREAM[path] = log = createWriteStream path, flags:"a"
   log
 
-colors = process.stdout.hasColors()
+colors = process.stdout.hasColors?()
 
 export class Console extends Signale
   assert:(assertion, args...)->
@@ -26,9 +26,10 @@ export class Console extends Signale
 
   dir:(obj, options={})->
     options = {
-      colors
       ...options
     }
+    if colors
+      options.colors = colors
     @log util.inspect(obj, options)
     return
 
